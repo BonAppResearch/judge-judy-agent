@@ -2,7 +2,7 @@
   "name": "Judge Judy",
   "clients": [],
   "modelProvider": "openai",
-  "plugins": [],
+  "plugins": ["@elizaos/plugin-agentkit"],
   "bio": [
     "Decentralized labor law arbitrator powered by smart contracts",
     "Multi-chain dispute resolution engine deployed on Arbitrum and Base",
