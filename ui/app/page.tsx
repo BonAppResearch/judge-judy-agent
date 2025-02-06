@@ -29,9 +29,6 @@ export default function Home() {
       <section className="item-center mx-auto flex flex-col justify-between p-10">
         <div className="item-center flex w-full justify-between">
           <h2 className="text-xl font-bold">Employer</h2>
-          <button className="rounded-lg bg-green-400 p-4">
-            Request Withdrawal
-          </button>
         </div>
         <Transaction
           createdDate="2025-01-01"
@@ -39,14 +36,41 @@ export default function Home() {
           txHash="123"
           txStatus="lkjsdf"
         />
+        <Transaction
+          createdDate="2025-01-01"
+          walletAddress="0x1234"
+          txHash="123"
+          txStatus="lkjsdf"
+        />
+        <Transaction
+          createdDate="2025-01-01"
+          walletAddress="0x1234"
+          txHash="123"
+          txStatus="lkjsdf"
+        />
       </section>
-      <section className="item-center mx-auto flex justify-between p-10">
+      <section className="item-center mx-auto flex flex-col justify-between p-10">
         <div className="item-center flex w-full justify-between">
           <h2 className="text-xl font-bold">Employee</h2>
-          <button className="rounded-lg bg-green-400 p-4">
-            Request Withdrawal
-          </button>
         </div>
+        <Transaction
+          createdDate="2025-01-01"
+          walletAddress="0x1234"
+          txHash="123"
+          txStatus="lkjsdf"
+        />
+        <Transaction
+          createdDate="2025-01-01"
+          walletAddress="0x1234"
+          txHash="123"
+          txStatus="lkjsdf"
+        />
+        <Transaction
+          createdDate="2025-01-01"
+          walletAddress="0x1234"
+          txHash="123"
+          txStatus="lkjsdf"
+        />
       </section>
     </>
   );

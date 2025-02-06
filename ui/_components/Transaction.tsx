@@ -14,14 +14,14 @@ export default function Transaction({
   txStatus,
 }: TxProp) {
   return (
-    <div className="px-4 flex justify-between">
-      <div className="flex gap-4">
+    <div className="p-4 flex justify-between border-b-2">
+      <div className="flex gap-10 w-full items-center">
         <p>{createdDate}</p>
         <p>{walletAddress /* Employee*/}</p>
         <p>{txHash}</p>
         <p>{txStatus}</p>
       </div>
-      <button className="rounded-lg bg-green-400 p-4 text-xs">
+      <button className="rounded-lg bg-green-400 px-4 py-2 text-xs">
         Request Withdrawal
       </button>
     </div>
