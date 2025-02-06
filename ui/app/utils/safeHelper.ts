@@ -45,3 +45,26 @@ export const createSafeClient = async (currentSigner: WalletClient, counterParty
 
   return safeClient;
 };
+
+// Create a new Safe account
+export const storeSafeRecord = async (safeAddress: string, ownerAddress: string) => {
+  const response = await fetch("/api/safe", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      safeAddress: "0x...",
+      ownerAddress: "0x...",
+    }),
+  });
+  const data = await response.json();
+  console.log(data);
+};
+
+// Fetch all Safe accounts
+export const getSafesRecords = async () => {
+  const response = await fetch("/api/safe");
+  const data = await response.json();
+  console.log(data);
+};
