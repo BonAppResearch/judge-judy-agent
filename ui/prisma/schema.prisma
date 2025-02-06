@@ -1,0 +1,12 @@
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+} 
+
+model SafeAccount {
+  id            String   @id @default(cuid())
+  address       String   @unique
+  ownerAddress  String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
