@@ -1,4 +1,5 @@
 "use client";
+import Transaction from "@/_components/Transaction";
 import { useWallets, usePrivy } from "@privy-io/react-auth";
 
 export default function Home() {
@@ -25,13 +26,19 @@ export default function Home() {
           </button>
         </div>
       </nav>
-      <section className="item-center mx-auto flex justify-between p-10">
+      <section className="item-center mx-auto flex flex-col justify-between p-10">
         <div className="item-center flex w-full justify-between">
           <h2 className="text-xl font-bold">Employer</h2>
           <button className="rounded-lg bg-green-400 p-4">
             Request Withdrawal
           </button>
         </div>
+        <Transaction
+          createdDate="2025-01-01"
+          walletAddress="0x1234"
+          txHash="123"
+          txStatus="lkjsdf"
+        />
       </section>
       <section className="item-center mx-auto flex justify-between p-10">
         <div className="item-center flex w-full justify-between">
