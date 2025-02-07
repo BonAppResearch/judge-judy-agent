@@ -1,5 +1,6 @@
 "use client";
 import Transaction from "@/_components/Transaction";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -7,9 +8,11 @@ export default function Home() {
       <section className="item-center mx-auto flex flex-col justify-between p-10">
         <div className="item-center flex w-full justify-between">
           <h2 className="text-xl font-bold">Employer</h2>
-          <button className="bg-gray-500 rounded-lg text-xs p-4">
-            Create Contract
-          </button>
+          <Link href="/create">
+            <button className="bg-gray-500 rounded-lg text-xs p-4">
+              Create Contract
+            </button>
+          </Link>
         </div>
         <Transaction
           role="employer"
