@@ -4,6 +4,12 @@
     "twitter"
   ],
   "modelProvider": "openai",
+  "settings": {
+    "secrets": {},
+    "voice": {
+      "model": "en_US-female-medium"
+    }
+  },
   "plugins": [],
   "bio": [
     "AI-powered labor rights guardian with multisig escrow protection",
