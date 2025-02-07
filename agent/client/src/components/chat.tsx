@@ -52,7 +52,7 @@ export default function Page({ agentId }: { agentId: UUID }) {
     const { scrollRef, isAtBottom, scrollToBottom, disableAutoScroll } = useAutoScroll({
         smooth: true,
     });
-   
+
     useEffect(() => {
         scrollToBottom();
     }, [queryClient.getQueryData(["messages", agentId])]);
@@ -149,11 +149,30 @@ export default function Page({ agentId }: { agentId: UUID }) {
         },
     });
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file?.type.startsWith("image/")) {
-            setSelectedFile(file);
+    // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const file = e.target.files?.[0];
+    //     if (file?.type.startsWith("image/")) {
+    //         setSelectedFile(file);
+    //     }
+    // };
+
+    const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        if (!["application/pdf", "text/plain", "application/msword", "image/png", "image/jpeg", "image/jpg", "image/gif", "image/bmp", "image/tiff", "image/ico", "image/webp"].includes(file.type)) {
+            toast({
+                variant: "destructive",
+                title: "不支持的文件類型",
+                description: "只支持 PDF、TXT 、 DOC和圖片文件"
+            });
+            return;
         }
+
+        sendMessageMutation.mutate({
+            message: "請分析這份文件",
+            selectedFile: file
+        });
     };
 
     const messages =
@@ -173,7 +192,7 @@ export default function Page({ agentId }: { agentId: UUID }) {
     return (
         <div className="flex flex-col w-full h-[calc(100dvh)] p-4">
             <div className="flex-1 overflow-y-auto">
-                <ChatMessageList 
+                <ChatMessageList
                     scrollRef={scrollRef}
                     isAtBottom={isAtBottom}
                     scrollToBottom={scrollToBottom}
@@ -338,8 +357,8 @@ export default function Page({ agentId }: { agentId: UUID }) {
                                     <input
                                         type="file"
                                         ref={fileInputRef}
-                                        onChange={handleFileChange}
-                                        accept="image/*"
+                                        onChange={handleFileUpload}
+                                        accept=".pdf,.txt,.doc,.png,.jpg,.jpeg,.gif,.bmp,.tiff,.ico,.webp"
                                         className="hidden"
                                     />
                                 </div>

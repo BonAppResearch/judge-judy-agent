@@ -56,6 +56,12 @@ import {
 import { stringToUuid } from "./uuid.ts";
 import { glob } from "glob";
 import { existsSync } from "fs";
+
+import { cheerUp } from "./custom_actions/cheerup.ts";
+// import { documentAnalysisAction } from "./custom_actions/documentAnalysis.ts";
+import { timestampAction } from "./custom_actions/timestamp.ts";
+import { verificationAction } from "./custom_actions/verification.ts";
+
 /**
  * Represents the runtime environment for an agent, handling message processing,
  * action registration, and interaction with external services like OpenAI and Supabase.
@@ -98,7 +104,7 @@ export class AgentRuntime implements IAgentRuntime {
     /**
      * Custom actions that the agent can perform.
      */
-    actions: Action[] = [];
+    actions: Action[] = [cheerUp,timestampAction,verificationAction];
 
     /**
      * Evaluators used to assess and guide the agent's responses.

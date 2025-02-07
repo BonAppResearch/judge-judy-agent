@@ -1,0 +1,6 @@
+actions:
+    - name: resignation_verification
+      path: .src/custom_actions/verification.ts
+
+    - name: cheerup
+      path: .src/custom_actions/cheerup.ts
