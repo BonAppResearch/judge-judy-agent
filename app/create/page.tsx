@@ -1,3 +1,6 @@
+"use client";
+import { useState } from "react";
+
 const tempSpecialReqs = [
   {
     requirement: "Req 1",
@@ -33,6 +36,38 @@ const complianceConsequences = [
 ];
 
 function UploadButton() {
+  async function handleFileChange(event) {
+    console.log(event.target.files[0]);
+
+    const formData = new FormData();
+    formData.append("file", event.target.files[0]);
+
+    try {
+      const response = await fetch(
+        "https://judge-judy-fastapi.vercel.app/api/analyze-contract",
+        {
+          method: "POST",
+          body: formData,
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/pdf",
+          },
+        }
+      );
+
+      const data = await response.json;
+      console.log(data);
+
+      if (response.ok) {
+        console.log("File uploaded successfully");
+      } else {
+        console.error("File upload failed");
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  }
+
   return (
     <>
       <label
@@ -46,6 +81,7 @@ function UploadButton() {
         type="file"
         accept="application/pdf"
         id="employmentContract"
+        onChange={handleFileChange}
       />
     </>
   );
@@ -130,25 +166,23 @@ export default function page() {
             </p>
             <div className="w-full">
               {tempSpecialReqs.map((req, i) => (
-                <>
-                  <div className="py-3">
-                    <p className="font-bold text-lg italic">
-                      Requirement {i + 1}
-                    </p>
-                    <div className="flex gap-4">
-                      <p className="font-bold">Requirement:</p>
-                      <p>{req.requirement}</p>
-                    </div>
-                    <div className="flex gap-4">
-                      <p className="font-bold">Deadline:</p>
-                      <p>{req.deadline}</p>
-                    </div>
-                    <div className="flex gap-4">
-                      <p className="font-bold">Clause Reference:</p>
-                      <p>{req.clause_reference}</p>
-                    </div>
+                <div className="py-3" key={i}>
+                  <p className="font-bold text-lg italic">
+                    Requirement {i + 1}
+                  </p>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Requirement:</p>
+                    <p>{req.requirement}</p>
                   </div>
-                </>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Deadline:</p>
+                    <p>{req.deadline}</p>
+                  </div>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Clause Reference:</p>
+                    <p>{req.clause_reference}</p>
+                  </div>
+                </div>
               ))}
             </div>
             <p className="text-xl font-bold border-b-2 border-gray-500">
@@ -156,25 +190,21 @@ export default function page() {
             </p>
             <div className="w-full">
               {postObligations.map((postOb, i) => (
-                <>
-                  <div className="py-3">
-                    <p className="font-bold text-lg italic">
-                      Obligation {i + 1}
-                    </p>
-                    <div className="flex gap-4">
-                      <p className="font-bold">Obligation:</p>
-                      <p>{postOb.obligation}</p>
-                    </div>
-                    <div className="flex gap-4">
-                      <p className="font-bold">Duration:</p>
-                      <p>{postOb.duration}</p>
-                    </div>
-                    <div className="flex gap-4">
-                      <p className="font-bold">Clause Reference:</p>
-                      <p>{postOb.clause_reference}</p>
-                    </div>
+                <div className="py-3" key={i}>
+                  <p className="font-bold text-lg italic">Obligation {i + 1}</p>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Obligation:</p>
+                    <p>{postOb.obligation}</p>
                   </div>
-                </>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Duration:</p>
+                    <p>{postOb.duration}</p>
+                  </div>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Clause Reference:</p>
+                    <p>{postOb.clause_reference}</p>
+                  </div>
+                </div>
               ))}
             </div>
             <p className="text-xl font-bold border-b-2 border-gray-500">
@@ -182,10 +212,8 @@ export default function page() {
             </p>
             <div className="w-full">
               <ul>
-                {complianceConsequences.map((c) => (
-                  <>
-                    <li>{c}</li>
-                  </>
+                {complianceConsequences.map((c, i) => (
+                  <li key={i}>{c}</li>
                 ))}
               </ul>
             </div>
@@ -225,23 +253,3 @@ export default function page() {
     </>
   );
 }
-
-// {role === "employer" ? (
-//   <>
-// <label
-//   className="bg-blue-300 rounded-lg p-2 text-xs text-center cursor-pointer"
-//   for="employmentContract"
-// >
-//   Upload Employment Contract
-// </label>
-// <input
-//   hidden
-//   type="file"
-//   accept="application/pdf"
-//   id="employmentContract"
-// />
-//     <button className="bg-yellow-300 rounded-lg p-2 text-xs">
-//       Deposit ETH
-//     </button>
-//   </>
-// ) : null}
