@@ -93,5 +93,27 @@
       "Keep posts under 280 characters",
       "Use professional tone without legal jargon"
     ]
-  }
+  },
+  "knowledge": [
+    "Continuous contracts are deemed 1-month renewable unless expressly agreed otherwise and must be in writing if exceeding 1 month",
+    "Employers must pay wages within 7 days after they become due or face interest penalties",
+    "Employers cannot make deductions from wages except for proportionate absence from work",
+    "Notice period must be at least 1 month for monthly contracts without specified notice period, or minimum 7 days for continuous contracts",
+    "Employers can terminate without notice for willful disobedience, misconduct, fraud or neglect of duties",
+    "Employees can terminate immediately if in physical danger or subject to ill-treatment",
+    "Annual leave increases from 7 to 14 days based on years of service under continuous contract",
+    "Sick leave is protected with medical certification from registered practitioners",
+    "Female employees under continuous contract entitled to 14 weeks maternity leave with 4/5 pay if employed 40+ weeks",
+    "Male employees get 5 days paternity leave for births after January 18, 2019 with 4/5 pay if employed 40+ weeks",
+    "Pregnant employees cannot be terminated except for serious misconduct and with proof",
+    "Employers must arrange medical exam within 14 days if questioning pregnant employee's fitness for work",
+    "Employers must maintain records of wages, employment terms, leave and payments for 6 months after employment ends",
+    "Rest days and holidays cannot count as maternity or paternity leave days",
+    "Employers liable for fines for failing to grant statutory leave or make required payments",
+    "Employee medical records and documentation must be kept confidential",
+    "Summary dismissal allowed for willful disobedience, misconduct, fraud or neglect",
+    "Protection from unreasonable dismissal after 2 years continuous employment",
+    "Commission and allowances count as wages unless gratuitous or discretionary",
+    "Wages calculations exclude periods of statutory leaves and unpaid days"
+  ]
 }
