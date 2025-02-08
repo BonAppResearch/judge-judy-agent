@@ -182,7 +182,7 @@ export default function page() {
             </p>
             <div className="w-full">
               <ul>
-                {complianceConsequences.map((c, i) => (
+                {complianceConsequences.map((c) => (
                   <>
                     <li>{c}</li>
                   </>
@@ -194,7 +194,7 @@ export default function page() {
         <div className="flex w-full gap-4">
           <p className="font-bold text-lg w-20">Step 3:</p>
           <div className="flex flex-col">
-            <label for="employeeWalletAdd">
+            <label htmlFor="employeeWalletAdd">
               Enter Employee's Wallet Address
             </label>
             <input
