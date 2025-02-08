@@ -66,11 +66,13 @@ The user interface (`ui/`) connects the various components through:
 
 - We wished to use RAG for agent knowledge, but it's not supported on Autonome unless we deploy a custom docker image.
 - We also had problems deploying on Autonome when the knowledge array was too large. To demo, we only selected a few chunks.
+- Autonome deployment is often blocked by Twitter login, so we have deployed two different instances of the agent to handle chat and social media separately.
 - Ideally employment contracts should be uploaded and stored by the agent, but we don't have a storage solution yet.
 - In the future, we wish to implement ZK Email to ensure the authenticity of the arbitration documents submitted by the users.
 - A more customized multisig contract tailor-made for the corresponding employment contract should be used in the future.
 
 ## Outlook
 
+- We hope to expand Judge Judy's knowledge to include more jurisdictions and more laws.
 - This project can be extended to a protocol guild style pledge where employers promise to use the protocol for arbitration.
 - This protocol can be extended as a proof of employment protocol where employees can prove their employment on a decentralized version of Glassdoor.
