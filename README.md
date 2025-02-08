@@ -14,7 +14,7 @@ cd judge-judy-agent
 git submodule update --init --recursive
 ```
 
-See the respecitve README.md files for each submodule for more information.
+See the respective README.md files for each submodule for more information.
 
 ## How it works
 
@@ -42,18 +42,17 @@ The chat interface (`chat/`) provides a real-time communication channel with Jud
 
 ### API
 
-The API is built using a Next.js 14 + FastAPI hybrid architecture:
+The API (`api/`) is built using a Next.js 14 + FastAPI hybrid architecture:
 
-- FastAPI backend mapped to `/api/` routes in the Next.js application
 - Serverless deployment on Vercel for scalable performance
 - Handles authentication and request validation
 - Processes employment contract analysis and dispute resolution
 - Integrates with smart contract systems for escrow management
-- Provides endpoints for both chat and arbitration functionalities
+- Provides endpoints for arbitration functionalities
 
 ### UI
 
-The user interface connects the various components through:
+The user interface (`ui/`) connects the various components through:
 
 - Clean, professional design optimized for legal consultation
 - Seamless integration with the API backend
