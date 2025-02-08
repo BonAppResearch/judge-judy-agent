@@ -36,7 +36,7 @@ const complianceConsequences = [
 ];
 
 function UploadButton() {
-  async function handleFileChange(event) {
+  async function handleFileChange(event: any) {
     console.log(event.target.files[0]);
 
     const formData = new FormData();
@@ -56,13 +56,13 @@ function UploadButton() {
       );
 
       const data = await response.json;
-      console.log(data);
+      console.log(response);
 
-      if (response.ok) {
-        console.log("File uploaded successfully");
-      } else {
-        console.error("File upload failed");
-      }
+      // if (response.ok) {
+      //   console.log("File uploaded successfully");
+      // } else {
+      //   console.error("File upload failed");
+      // }
     } catch (error) {
       console.error("Error uploading file:", error);
     }

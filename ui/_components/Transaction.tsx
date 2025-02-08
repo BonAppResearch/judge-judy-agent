@@ -1,4 +1,4 @@
-// import React from "react";
+import React from "react";
 
 type TxProp = {
   role: "employer" | "employee";
@@ -8,13 +8,7 @@ type TxProp = {
   txStatus: string;
 };
 
-export default function Transaction({
-  role = "employer",
-  createdDate,
-  walletAddress,
-  txHash,
-  txStatus,
-}: TxProp) {
+export default function Transaction({ role = "employer", createdDate, walletAddress, txHash, txStatus }: TxProp) {
   return (
     <div className="p-4 flex justify-between border-b-2">
       <div className="flex gap-10 w-full items-center">
@@ -23,9 +17,11 @@ export default function Transaction({
         <p>{txHash}</p>
         <p>{txStatus}</p>
       </div>
-      <button className="rounded-lg bg-green-400 px-4 py-2 text-xs">
-        Request Withdrawal
-      </button>
+      <div className="flex gap-4">
+        <button className="rounded-lg bg-green-400 px-4 p-2 text-xs" onClick={() => {}}>
+          Request Withdrawal
+        </button>
+      </div>
     </div>
   );
 }

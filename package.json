@@ -17,8 +17,13 @@
   "dependencies": {
     "@prisma/client": "^6.3.1",
     "@privy-io/react-auth": "^2.3.0",
-    "@vercel/blob": "^0.27.1",
+    "@safe-global/api-kit": "^2.5.8",
     "@safe-global/protocol-kit": "^5.2.1",
+    "@vercel/blob": "^0.27.1",
+<<<<<<< HEAD:package.json
+    "@safe-global/protocol-kit": "^5.2.1",
+=======
+>>>>>>> ae390970c5c2a12eaf23f2112c60ac9446d5a2dd:ui/package.json
     "@vercel/postgres": "^0.10.0",
     "bs58": "^6.0.0",
     "next": "15.1.6",
