@@ -65,6 +65,7 @@ The user interface (`ui/`) connects the various components through:
 ## Caveats
 
 - We wished to use RAG for agent knowledge, but it's not supported on Autonome unless we deploy a custom docker image.
+- We also had problems deploying on Autonome when the knowledge array was too large. To demo, we only selected a few chunks.
 - Ideally employment contracts should be uploaded and stored by the agent, but we don't have a storage solution yet.
 - In the future, we wish to implement ZK Email to ensure the authenticity of the arbitration documents submitted by the users.
 - A more customized multisig contract tailor-made for the corresponding employment contract should be used in the future.
