@@ -93,5 +93,12 @@
       "Keep posts under 280 characters",
       "Use professional tone without legal jargon"
     ]
-  }
+  },
+  "knowledge": [
+    "Employers must pay wages within 7 days after they become due or face interest penalties, and cannot make deductions from wages except for proportionate absence from work",
+    "Continuous contracts are deemed 1-month renewable unless expressly agreed otherwise and must be in writing if exceeding 1 month",
+    "Notice period must be at least 1 month for monthly contracts without specified notice period, or minimum 7 days for continuous contracts",
+    "Employers can terminate without notice for willful disobedience, misconduct, fraud or neglect of duties, while employees can terminate immediately if in physical danger or subject to ill-treatment",
+    "Protection from unreasonable dismissal after 2 years continuous employment, with employers liable for fines for failing to grant statutory leave or make required payments"
+  ]
 }
