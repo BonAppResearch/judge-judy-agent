@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 
 import { getNewSafeClient } from "@/app/utils/safeHelper";
 import { useWallets } from "@privy-io/react-auth";
@@ -40,12 +41,14 @@ const complianceConsequences = [
 ];
 
 function UploadButton() {
-  async function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const files = event.target.files;
-    if (!files || files.length === 0) return;
+  const [file, setFile] = useState<File | null>(null);
+
+  async function handleContractAnalysis(selectedFile: File) {
+    console.log("haha");
+    console.log({ selectedFile });
 
     const formData = new FormData();
-    formData.append("file", files[0]);
+    formData.append("file", selectedFile);
 
     try {
       const response = await fetch(
@@ -53,21 +56,15 @@ function UploadButton() {
         {
           method: "POST",
           body: formData,
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/pdf",
-          },
         }
       );
 
-      // const data = await response.json;
-      console.log(response);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-      // if (response.ok) {
-      //   console.log("File uploaded successfully");
-      // } else {
-      //   console.error("File upload failed");
-      // }
+      const data = await response.json();
+      console.log(data);
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -86,7 +83,13 @@ function UploadButton() {
         type="file"
         accept="application/pdf"
         id="employmentContract"
-        onChange={handleFileChange}
+        onChange={(e) => {
+          const selectedFile = e.target.files?.[0] || null;
+          setFile(selectedFile);
+          if (selectedFile) {
+            handleContractAnalysis(selectedFile);
+          }
+        }}
       />
     </>
   );
