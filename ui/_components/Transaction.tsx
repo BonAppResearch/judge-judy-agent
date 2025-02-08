@@ -1,6 +1,4 @@
 import React from "react";
-import { createWalletClient, custom } from "viem";
-import { baseSepolia } from "viem/chains";
 
 type TxProp = {
   role: "employer" | "employee";
