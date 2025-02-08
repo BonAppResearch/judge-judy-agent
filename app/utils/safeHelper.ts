@@ -1,7 +1,8 @@
-/* eslint no-use-before-define: 0 */ // --> OFF
-
-import Safe from "@safe-global/protocol-kit";
-import { Address, Client, WalletClient } from "viem";
+import Safe, {
+  getSafeAddressFromDeploymentTx,
+} from "@safe-global/protocol-kit";
+import SafeApiKit from "@safe-global/api-kit";
+import { Address, createPublicClient, http, WalletClient } from "viem";
 import { baseSepolia } from "viem/chains";
 
 export const getAgentSigner = async () => {
@@ -12,20 +13,82 @@ export const getAgentSigner = async () => {
 const AGENT_SIGNER_ADDRESS = "0x0000000000000000000000000000000000000000";
 const RPC_URL = "https://sepolia.base.org";
 
-export const createSafeClient = async (
-  currentSigner: WalletClient,
-  counterPartySigner: Address
-) => {
-  console.log(currentSigner.transport);
+const publicClient = createPublicClient({
+  chain: baseSepolia,
+  transport: http(RPC_URL),
+});
 
-  const address = (await currentSigner.requestAddresses())[0];
-  console.log(address);
+// safe api clients
+const apiKit = new SafeApiKit({
+  chainId: BigInt(baseSepolia.id),
+});
+
+/**
+ * Example employer workflow (happy case)
+ *
+ * 1. Listing safe addresses for employer
+ * 2. if there's no safe address that's created with the specific employee
+ * 3. create a new safe address with the specific employee [together with its own address as employer]
+ *    - getNewSafeClient
+ * 4. having the safe client (& its address), deposit $$ in it with normal txn (non included in this class)
+ * 5. afterwards, propose a withdraw transaction to the safe to take money out
+ * 6. another party (employee) will approve the transaction
+ * 7. execute the transaction
+ *
+ *
+ */
+
+// listing from apis
+export const listRecordsForEmployer = async (employerAddress: Address) => {
+  const response = await fetch(`/api/safe?employerAddress=${employerAddress}`);
+  const data = await response.json();
+  console.log(data);
+
+  return data;
+};
+
+export const listRecordsForEmployee = async (employeeAddress: Address) => {
+  const response = await fetch(`/api/safe?employeeAddress=${employeeAddress}`);
+  const data = await response.json();
+  console.log(data);
+
+  return data;
+};
+
+// get / create the safe clients
+export const getDeployedSafeClient = async (
+  safeAddress: Address,
+  signer: Address
+) => {
   const safeClient = await Safe.init({
     provider: RPC_URL,
-    signer: address,
+    safeAddress: safeAddress,
+    signer: signer,
+  });
+
+  if (!(await safeClient.isSafeDeployed())) {
+    throw new Error("Safe not deployed");
+  }
+
+  return safeClient;
+};
+
+// assuming only employer will start this process, employer = signer.
+export const getNewSafeClient = async (
+  employerAccount: WalletClient,
+  employeeAddress: Address
+) => {
+  console.log(employerAccount.transport);
+
+  const employerAddress = (await employerAccount.requestAddresses())[0];
+  console.log(employerAddress);
+
+  const safeClient = await Safe.init({
+    provider: RPC_URL,
+    signer: employerAccount,
     predictedSafe: {
       safeAccountConfig: {
-        owners: [address],
+        owners: [employerAddress, employeeAddress, AGENT_SIGNER_ADDRESS],
         threshold: 1,
       },
     },
@@ -39,13 +102,22 @@ export const createSafeClient = async (
   const deploymentTransaction =
     await safeClient.createSafeDeploymentTransaction();
 
-  const transactionHash = await currentSigner.sendTransaction({
+  const transactionHash = await employerAccount.sendTransaction({
     to: deploymentTransaction.to,
     value: BigInt(deploymentTransaction.value),
     data: deploymentTransaction.data as `0x${string}`,
     chain: baseSepolia,
-    account: address,
+    account: employerAddress,
   });
+
+  // wait for the transaction to be done
+  const receipt = await publicClient.waitForTransactionReceipt({
+    hash: transactionHash,
+  });
+
+  const safeAddress = getSafeAddressFromDeploymentTx(receipt, "1.4.1");
+
+  await storeSafeRecord(safeAddress, employerAddress, employeeAddress);
 
   console.log(
     "safeclient",
@@ -58,10 +130,67 @@ export const createSafeClient = async (
   return safeClient;
 };
 
-// Create a new Safe account
-export const storeSafeRecord = async (
+// propose a transaction to the safe
+export const proposeWithdrawTransaction = async (
+  safeClient: Safe,
+  to: Address,
+  value: bigint
+) => {
+  const tx = await safeClient.createTransaction({
+    transactions: [
+      {
+        to: to,
+        data: "0x",
+        value: value.toString(),
+      },
+    ],
+  });
+
+  // Every transaction has a Safe (Smart Account) Transaction Hash different than the final transaction hash
+  const safeTxHash = await safeClient.getTransactionHash(tx);
+  // The AI agent signs this Safe (Smart Account) Transaction Hash
+  const signature = await safeClient.signHash(safeTxHash);
+
+  // Now the transaction with the signature is sent to the Transaction Service with the Api Kit:
+  const response = await apiKit.proposeTransaction({
+    safeAddress: await safeClient.getAddress(),
+    safeTransactionData: tx.data,
+    safeTxHash,
+    senderSignature: signature.data,
+    senderAddress: AGENT_SIGNER_ADDRESS,
+  });
+
+  console.log(response);
+
+  return response;
+};
+
+// approve a transaction to the safe (safeclient needs to be deployed safe)
+export const approveWithdrawTransaction = async (safeClient: Safe) => {
+  // check safe client deployed
+  if (!(await safeClient.isSafeDeployed())) {
+    throw new Error("Safe not deployed");
+  }
+
+  // Get pending transactions that need a signature
+  const pendingTransactions = await apiKit.getPendingTransactions(
+    await safeClient.getAddress()
+  );
+  // We assume there is only one pending transaction for the safe address
+  const transaction = pendingTransactions.results[0];
+  // sign the transaction
+  const signature = await safeClient.signHash(transaction.transactionHash);
+  // confirm the transaction
+  await apiKit.confirmTransaction(transaction.transactionHash, signature.data);
+  // execute the transaction
+  await safeClient.executeTransaction(transaction);
+};
+
+// internal functions, invoke during new safe account creation
+const storeSafeRecord = async (
   safeAddress: string,
-  ownerAddress: string
+  employerAddress: string,
+  employeeAddress: string
 ) => {
   const response = await fetch("/api/safe", {
     method: "POST",
@@ -69,17 +198,11 @@ export const storeSafeRecord = async (
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      safeAddress: "0x...",
-      ownerAddress: "0x...",
+      safeAddress: safeAddress,
+      employerAddress,
+      employeeAddress,
     }),
   });
-  const data = await response.json();
-  console.log(data);
-};
-
-// Fetch all Safe accounts
-export const getSafesRecords = async () => {
-  const response = await fetch("/api/safe");
   const data = await response.json();
   console.log(data);
 };
