@@ -1,3 +1,37 @@
+const tempSpecialReqs = [
+  {
+    requirement: "Req 1",
+    deadline: "1",
+    clause_reference: "Clause reference 1",
+  },
+  {
+    requirement: "Req 2",
+    deadline: "2",
+    clause_reference: "Clause reference 2",
+  },
+];
+
+const postObligations = [
+  {
+    obligation:
+      "Maintain confidentiality of employer's proprietary information",
+    duration: "Continues after employment ends",
+    clause_reference: "Section 8",
+  },
+  {
+    obligation:
+      "Maintain confidentiality of employer's proprietary information",
+    duration: "Continues after employment ends",
+    clause_reference: "Section 8",
+  },
+];
+
+const complianceConsequences = [
+  "consequence 1",
+  "consequence 2",
+  "consequence 3",
+];
+
 function UploadButton() {
   return (
     <>
@@ -21,7 +55,9 @@ export default function page() {
   return (
     <>
       <div className="flex flex-col w-full mx-auto px-10 py-10 items-center gap-10">
-        <h1 className="font-bold text-2xl">Create Contract</h1>
+        <h1 className="font-bold text-2xl bg-slate-300 w-full text-center">
+          Create Contract
+        </h1>
         <div className="flex gap-4 w-full justify-start items-center">
           <p className="font-bold text-lg w-20">Step 1:</p>
           <UploadButton />
@@ -93,43 +129,65 @@ export default function page() {
               Special Requirements
             </p>
             <div className="w-full">
-              <div className="flex gap-4">
-                <p className="font-bold">Requirement:</p>
-                <p>{/**/}</p>
-              </div>
-              <div className="flex gap-4">
-                <p className="font-bold">Deadline:</p>
-                <p>{/**/}</p>
-              </div>
-              <div className="flex gap-4">
-                <p className="font-bold">Clause Reference:</p>
-                <p>{/**/}</p>
-              </div>
+              {tempSpecialReqs.map((req, i) => (
+                <>
+                  <div className="py-3">
+                    <p className="font-bold text-lg italic">
+                      Requirement {i + 1}
+                    </p>
+                    <div className="flex gap-4">
+                      <p className="font-bold">Requirement:</p>
+                      <p>{req.requirement}</p>
+                    </div>
+                    <div className="flex gap-4">
+                      <p className="font-bold">Deadline:</p>
+                      <p>{req.deadline}</p>
+                    </div>
+                    <div className="flex gap-4">
+                      <p className="font-bold">Clause Reference:</p>
+                      <p>{req.clause_reference}</p>
+                    </div>
+                  </div>
+                </>
+              ))}
             </div>
             <p className="text-xl font-bold border-b-2 border-gray-500">
               Post Resignation Requirements
             </p>
             <div className="w-full">
-              <div className="flex gap-4">
-                <p className="font-bold">Obligation:</p>
-                <p>{/**/}</p>
-              </div>
-              <div className="flex gap-4">
-                <p className="font-bold">Duration:</p>
-                <p>{/**/}</p>
-              </div>
-              <div className="flex gap-4">
-                <p className="font-bold">Clause Reference:</p>
-                <p>{/**/}</p>
-              </div>
+              {postObligations.map((postOb, i) => (
+                <>
+                  <div className="py-3">
+                    <p className="font-bold text-lg italic">
+                      Obligation {i + 1}
+                    </p>
+                    <div className="flex gap-4">
+                      <p className="font-bold">Obligation:</p>
+                      <p>{postOb.obligation}</p>
+                    </div>
+                    <div className="flex gap-4">
+                      <p className="font-bold">Duration:</p>
+                      <p>{postOb.duration}</p>
+                    </div>
+                    <div className="flex gap-4">
+                      <p className="font-bold">Clause Reference:</p>
+                      <p>{postOb.clause_reference}</p>
+                    </div>
+                  </div>
+                </>
+              ))}
             </div>
             <p className="text-xl font-bold border-b-2 border-gray-500">
               Compliance Consequences
             </p>
             <div className="w-full">
-              <div className="flex gap-4">
-                <p>{/**/}</p>
-              </div>
+              <ul>
+                {complianceConsequences.map((c, i) => (
+                  <>
+                    <li>{c}</li>
+                  </>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

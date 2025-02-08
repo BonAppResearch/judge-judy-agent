@@ -9,7 +9,7 @@ export default function Home() {
         <div className="item-center flex w-full justify-between">
           <h2 className="text-xl font-bold">Employer</h2>
           <Link href="/create">
-            <button className="bg-gray-500 rounded-lg text-xs p-4">
+            <button className="bg-gray-500 rounded-lg text-white text-xs p-4">
               Create Contract
             </button>
           </Link>
