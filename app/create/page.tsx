@@ -58,7 +58,7 @@ function UploadButton() {
         }
       );
 
-      const data = await response.json;
+      // const data = await response.json;
       console.log(response);
 
       // if (response.ok) {
@@ -233,7 +233,7 @@ export default function page() {
           <p className="font-bold text-lg w-20">Step 3:</p>
           <div className="flex flex-col">
             <label htmlFor="employeeWalletAdd">
-              Enter Employee's Wallet Address
+              Enter Employee&apos;s Wallet Address
             </label>
             <input
               id="employeeWalletAdd"
