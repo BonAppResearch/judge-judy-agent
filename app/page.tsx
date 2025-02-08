@@ -15,21 +15,18 @@ export default function Home() {
           </Link>
         </div>
         <Transaction
-          role="employer"
           createdDate="2025-01-01"
           walletAddress="0x1234"
           txHash="123"
           txStatus="lkjsdf"
         />
         <Transaction
-          role="employer"
           createdDate="2025-01-01"
           walletAddress="0x1234"
           txHash="123"
           txStatus="lkjsdf"
         />
         <Transaction
-          role="employer"
           createdDate="2025-01-01"
           walletAddress="0x1234"
           txHash="123"
@@ -41,21 +38,18 @@ export default function Home() {
           <h2 className="text-xl font-bold">Employee</h2>
         </div>
         <Transaction
-          role="employee"
           createdDate="2025-01-01"
           walletAddress="0x1234"
           txHash="123"
           txStatus="lkjsdf"
         />
         <Transaction
-          role="employee"
           createdDate="2025-01-01"
           walletAddress="0x1234"
           txHash="123"
           txStatus="lkjsdf"
         />
         <Transaction
-          role="employee"
           createdDate="2025-01-01"
           walletAddress="0x1234"
           txHash="123"

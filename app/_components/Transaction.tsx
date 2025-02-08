@@ -1,7 +1,6 @@
 // import React from "react";
 
 type TxProp = {
-  role: "employer" | "employee";
   createdDate: string;
   walletAddress: string;
   txHash: string;
@@ -9,7 +8,7 @@ type TxProp = {
 };
 
 export default function Transaction({
-  role = "employer",
+  // role = "employer",
   createdDate,
   walletAddress,
   txHash,
