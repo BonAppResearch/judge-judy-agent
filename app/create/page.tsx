@@ -1,7 +1,9 @@
 "use client";
-// import { useState } from "react";
-// import { getNewSafeClient } from "@/app/utils/safeHelper";
-// import { useWallets } from "@privy-io/react-auth";
+
+import { getNewSafeClient } from "@/app/utils/safeHelper";
+import { useWallets } from "@privy-io/react-auth";
+import { createWalletClient, custom, Hex } from "viem";
+import { base } from "viem/chains";
 
 const tempSpecialReqs = [
   {
@@ -91,12 +93,23 @@ function UploadButton() {
 }
 
 export default function page() {
-  // const { wallets } = useWallets();
-  // const wallet = wallets[0] || null;
+  const { wallets } = useWallets();
 
-  // const handleCreateNewSafe = () => {
-  //   getNewSafeClient()
-  // }
+  const handleCreateNewSafe = async () => {
+    const employerPrivyWallet = wallets[0] || null;
+
+    await employerPrivyWallet.switchChain(base.id);
+
+    const provider = await employerPrivyWallet.getEthereumProvider();
+    const walletClient = createWalletClient({
+      account: employerPrivyWallet.address as Hex,
+      chain: base,
+      transport: custom(provider),
+    });
+
+    const safeClient = await getNewSafeClient(walletClient, "12345");
+    console.log({ safeClient });
+  };
 
   return (
     <>
@@ -248,7 +261,7 @@ export default function page() {
             <p>Sign Transaction to confirm the contract</p>
             <button
               className="bg-blue-300 rounded-lg p-2 w-[50%] text-xs"
-              // onClick={handleCreateNewSafe}
+              onClick={handleCreateNewSafe}
             >
               Sign Transaction
             </button>

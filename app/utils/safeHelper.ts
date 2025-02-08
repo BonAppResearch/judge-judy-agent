@@ -84,8 +84,8 @@ export const getNewSafeClient = async (
   console.log(employerAddress);
 
   const safeClient = await Safe.init({
-    provider: RPC_URL,
-    signer: employerAccount,
+    provider: employerAccount.transport,
+    signer: employeeAddress,
     predictedSafe: {
       safeAccountConfig: {
         owners: [employerAddress, employeeAddress, AGENT_SIGNER_ADDRESS],
