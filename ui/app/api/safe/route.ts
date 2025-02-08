@@ -35,7 +35,10 @@ export async function GET(request: Request) {
     const employeeAddress = searchParams.get("employeeAddress");
 
     // Build query conditions based on provided query parameters
-    const query: any = {};
+    const query: Partial<{
+      employerAddress: string;
+      employeeAddress: string;
+    }> = {};
 
     if (employerAddress) {
       query.employerAddress = employerAddress;

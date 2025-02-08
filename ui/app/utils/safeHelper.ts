@@ -1,6 +1,6 @@
-import Safe from "@safe-global/protocol-kit";
+import Safe, { getSafeAddressFromDeploymentTx } from "@safe-global/protocol-kit";
 import SafeApiKit from "@safe-global/api-kit";
-import { Address, Client, createPublicClient, createWalletClient, http, WalletClient } from "viem";
+import { Address, createPublicClient, http, WalletClient } from "viem";
 import { baseSepolia } from "viem/chains";
 
 export const getAgentSigner = async () => {
@@ -101,8 +101,9 @@ export const getNewSafeClient = async (employerAccount: WalletClient, employeeAd
   // wait for the transaction to be done
   const receipt = await publicClient.waitForTransactionReceipt({ hash: transactionHash });
 
-  await storeSafeRecord();
-  transactionHash.wait();
+  const safeAddress = getSafeAddressFromDeploymentTx(receipt, "1.4.1");
+
+  await storeSafeRecord(safeAddress, employerAddress, employeeAddress);
 
   console.log("safeclient", deploymentTransaction, await safeClient.isSafeDeployed(), await safeClient.getAddress(), safeClient.getPredictedSafe());
 
