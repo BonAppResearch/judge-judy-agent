@@ -38,11 +38,12 @@ const complianceConsequences = [
 ];
 
 function UploadButton() {
-  async function handleFileChange(event: any) {
-    console.log(event.target.files[0]);
+  async function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
 
     const formData = new FormData();
-    formData.append("file", event.target.files[0]);
+    formData.append("file", files[0]);
 
     try {
       const response = await fetch(
@@ -247,7 +248,7 @@ export default function page() {
             <p>Sign Transaction to confirm the contract</p>
             <button
               className="bg-blue-300 rounded-lg p-2 w-[50%] text-xs"
-              onClick={handleCreateNewSafe}
+              // onClick={handleCreateNewSafe}
             >
               Sign Transaction
             </button>
