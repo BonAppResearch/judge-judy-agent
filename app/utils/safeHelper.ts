@@ -1,3 +1,5 @@
+/* eslint no-use-before-define: 0 */ // --> OFF
+
 import Safe from "@safe-global/protocol-kit";
 import { Address, Client, WalletClient } from "viem";
 import { baseSepolia } from "viem/chains";
@@ -10,7 +12,10 @@ export const getAgentSigner = async () => {
 const AGENT_SIGNER_ADDRESS = "0x0000000000000000000000000000000000000000";
 const RPC_URL = "https://sepolia.base.org";
 
-export const createSafeClient = async (currentSigner: WalletClient, counterPartySigner: Address) => {
+export const createSafeClient = async (
+  currentSigner: WalletClient,
+  counterPartySigner: Address
+) => {
   console.log(currentSigner.transport);
 
   const address = (await currentSigner.requestAddresses())[0];
@@ -31,7 +36,8 @@ export const createSafeClient = async (currentSigner: WalletClient, counterParty
     return safeClient;
   }
 
-  const deploymentTransaction = await safeClient.createSafeDeploymentTransaction();
+  const deploymentTransaction =
+    await safeClient.createSafeDeploymentTransaction();
 
   const transactionHash = await currentSigner.sendTransaction({
     to: deploymentTransaction.to,
@@ -41,13 +47,22 @@ export const createSafeClient = async (currentSigner: WalletClient, counterParty
     account: address,
   });
 
-  console.log("safeclient", deploymentTransaction, await safeClient.isSafeDeployed(), await safeClient.getAddress(), safeClient.getPredictedSafe());
+  console.log(
+    "safeclient",
+    deploymentTransaction,
+    await safeClient.isSafeDeployed(),
+    await safeClient.getAddress(),
+    safeClient.getPredictedSafe()
+  );
 
   return safeClient;
 };
 
 // Create a new Safe account
-export const storeSafeRecord = async (safeAddress: string, ownerAddress: string) => {
+export const storeSafeRecord = async (
+  safeAddress: string,
+  ownerAddress: string
+) => {
   const response = await fetch("/api/safe", {
     method: "POST",
     headers: {
