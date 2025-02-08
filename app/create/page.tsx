@@ -3,7 +3,7 @@
 import { getNewSafeClient } from "@/app/utils/safeHelper";
 import { useWallets } from "@privy-io/react-auth";
 import { createWalletClient, custom, Hex } from "viem";
-import { base } from "viem/chains";
+import { baseSepolia } from "viem/chains";
 
 const tempSpecialReqs = [
   {
@@ -98,16 +98,19 @@ export default function Page() {
   const handleCreateNewSafe = async () => {
     const employerPrivyWallet = wallets[0] || null;
 
-    await employerPrivyWallet.switchChain(base.id);
+    await employerPrivyWallet.switchChain(baseSepolia.id);
 
     const provider = await employerPrivyWallet.getEthereumProvider();
     const walletClient = createWalletClient({
       account: employerPrivyWallet.address as Hex,
-      chain: base,
+      chain: baseSepolia,
       transport: custom(provider),
     });
 
-    const safeClient = await getNewSafeClient(walletClient, "12345");
+    const safeClient = await getNewSafeClient(
+      walletClient,
+      "0x4838B106FCe9647Bdf1E7877BF73cE8B0BAD5f97"
+    );
     console.log({ safeClient });
   };
 

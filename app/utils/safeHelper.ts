@@ -85,7 +85,7 @@ export const getNewSafeClient = async (
 
   const safeClient = await Safe.init({
     provider: employerAccount.transport,
-    signer: employeeAddress,
+    signer: employerAddress,
     predictedSafe: {
       safeAccountConfig: {
         owners: [employerAddress, employeeAddress, AGENT_SIGNER_ADDRESS],
