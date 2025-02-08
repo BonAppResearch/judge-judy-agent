@@ -1,14 +1,18 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/prisma/prisma";
 import { NextResponse } from "next/server";
 
 // POST endpoint to create a new Safe account
 export async function POST(request: Request) {
   try {
-    const { safeAddress, employerAddress, employeeAddress } = await request.json();
+    const { safeAddress, employerAddress, employeeAddress } =
+      await request.json();
 
     // Validate input
     if (!safeAddress || !employerAddress || !employeeAddress) {
-      return NextResponse.json({ error: "Safe address and owner address are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Safe address and owner address are required" },
+        { status: 400 }
+      );
     }
 
     // Create new Safe account
@@ -23,7 +27,10 @@ export async function POST(request: Request) {
     return NextResponse.json(safeAccount);
   } catch (error) {
     console.error("Failed to create safe account:", error);
-    return NextResponse.json({ error: "Failed to create safe account" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to create safe account" },
+      { status: 500 }
+    );
   }
 }
 
@@ -58,6 +65,9 @@ export async function GET(request: Request) {
     return NextResponse.json(safeAccounts);
   } catch (error) {
     console.error("Failed to fetch safe accounts:", error);
-    return NextResponse.json({ error: "Failed to fetch safe accounts" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch safe accounts" },
+      { status: 500 }
+    );
   }
 }

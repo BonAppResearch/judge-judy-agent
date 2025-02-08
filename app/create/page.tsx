@@ -1,5 +1,7 @@
 "use client";
-import { useState } from "react";
+// import { useState } from "react";
+// import { getNewSafeClient } from "@/app/utils/safeHelper";
+// import { useWallets } from "@privy-io/react-auth";
 
 const tempSpecialReqs = [
   {
@@ -88,6 +90,13 @@ function UploadButton() {
 }
 
 export default function page() {
+  // const { wallets } = useWallets();
+  // const wallet = wallets[0] || null;
+
+  // const handleCreateNewSafe = () => {
+  //   getNewSafeClient()
+  // }
+
   return (
     <>
       <div className="flex flex-col w-full mx-auto px-10 py-10 items-center gap-10">
@@ -236,7 +245,10 @@ export default function page() {
           <p className="font-bold text-lg w-20">Step 4:</p>
           <div className="flex flex-col">
             <p>Sign Transaction to confirm the contract</p>
-            <button className="bg-blue-300 rounded-lg p-2 w-[50%] text-xs">
+            <button
+              className="bg-blue-300 rounded-lg p-2 w-[50%] text-xs"
+              onClick={handleCreateNewSafe}
+            >
               Sign Transaction
             </button>
           </div>
