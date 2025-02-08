@@ -48,6 +48,7 @@ export default function Page() {
   }, [resignationChecklist]);
 
   async function handleContractAnalysis(selectedFile: File) {
+    console.log(file);
     console.log("Starting contract analysis...");
 
     const formData = new FormData();
