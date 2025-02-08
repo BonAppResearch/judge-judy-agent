@@ -92,7 +92,7 @@ function UploadButton() {
   );
 }
 
-export default function page() {
+export default function Page() {
   const { wallets } = useWallets();
 
   const handleCreateNewSafe = async () => {
