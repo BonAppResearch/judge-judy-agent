@@ -133,213 +133,215 @@ export default function Page() {
           />
         </div>
         {resignationChecklist ? (
-          <div className="flex w-full gap-4">
-            <p className="font-bold text-lg w-20">Step 2:</p>
-            <div className="flex flex-col gap-4 justify-end items-start w-full">
-              <p>Review Resignation Checklist</p>
-              <p className="text-xl font-bold border-b-2 border-gray-500">
-                Notice Period
-              </p>
-              <div className="w-full">
-                <div className="flex gap-4">
-                  <p className="font-bold">Duration:</p>
-                  <p>
-                    {
-                      resignationChecklist?.resignation_checklist?.notice_period
-                        ?.duration
-                    }
-                  </p>
+          <>
+            <div className="flex w-full gap-4">
+              <p className="font-bold text-lg w-20">Step 2:</p>
+              <div className="flex flex-col gap-4 justify-end items-start w-full">
+                <p>Review Resignation Checklist</p>
+                <p className="text-xl font-bold border-b-2 border-gray-500">
+                  Notice Period
+                </p>
+                <div className="w-full">
+                  <div className="flex gap-4">
+                    <p className="font-bold">Duration:</p>
+                    <p>
+                      {
+                        resignationChecklist?.resignation_checklist
+                          ?.notice_period?.duration
+                      }
+                    </p>
+                  </div>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Clause Reference:</p>
+                    <p>
+                      {
+                        resignationChecklist?.resignation_checklist
+                          ?.notice_period?.clause_reference
+                      }
+                    </p>
+                  </div>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Exceptions:</p>
+                    <p>
+                      {
+                        resignationChecklist?.resignation_checklist
+                          ?.notice_period?.exceptions
+                      }
+                    </p>
+                  </div>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Clause Reference:</p>
+                    <p>
+                      {
+                        resignationChecklist?.resignation_checklist
+                          ?.notice_period?.clause_reference
+                      }
+                    </p>
+                  </div>
                 </div>
-                <div className="flex gap-4">
-                  <p className="font-bold">Clause Reference:</p>
-                  <p>
-                    {
-                      resignationChecklist?.resignation_checklist?.notice_period
-                        ?.clause_reference
-                    }
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <p className="font-bold">Exceptions:</p>
-                  <p>
-                    {
-                      resignationChecklist?.resignation_checklist?.notice_period
-                        ?.exceptions
-                    }
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <p className="font-bold">Clause Reference:</p>
-                  <p>
-                    {
-                      resignationChecklist?.resignation_checklist?.notice_period
-                        ?.clause_reference
-                    }
-                  </p>
-                </div>
-              </div>
-              <p className="text-xl font-bold border-b-2 border-gray-500">
-                Resignation Letter
-              </p>
-              <div className="w-full">
-                <div className="flex gap-4">
-                  <p className="font-bold">Required:</p>
-                  <p>
-                    {
-                      resignationChecklist?.resignation_checklist
-                        ?.resignation_letter?.required
-                    }
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <p className="font-bold">Format:</p>
-                  <p>
-                    {
-                      resignationChecklist?.resignation_checklist
-                        ?.resignation_letter?.format
-                    }
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <p className="font-bold">Deadline:</p>
-                  <p>
-                    {
-                      resignationChecklist?.resignation_checklist
-                        ?.resignation_letter?.deadline
-                    }
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <p className="font-bold">Submission Method:</p>
-                  <p>
-                    {
-                      resignationChecklist?.resignation_checklist
-                        ?.resignation_letter?.submission_method
-                    }
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <p className="font-bold">Recipients:</p>
-                  <div className="flex flex-col px-5">
-                    <div className="flex">
-                      <p>Primary:</p>
-                      <p>
-                        {
-                          resignationChecklist?.resignation_checklist
-                            ?.resignation_letter?.recipient?.primary
-                        }
-                      </p>
-                    </div>
-                    <div className="flex">
-                      <p>Alternative:</p>
-                      <p>
-                        {
-                          resignationChecklist?.resignation_checklist
-                            ?.resignation_letter?.recipient?.alternate
-                        }
-                      </p>
+                <p className="text-xl font-bold border-b-2 border-gray-500">
+                  Resignation Letter
+                </p>
+                <div className="w-full">
+                  <div className="flex gap-4">
+                    <p className="font-bold">Required:</p>
+                    <p>
+                      {
+                        resignationChecklist?.resignation_checklist
+                          ?.resignation_letter?.required
+                      }
+                    </p>
+                  </div>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Format:</p>
+                    <p>
+                      {
+                        resignationChecklist?.resignation_checklist
+                          ?.resignation_letter?.format
+                      }
+                    </p>
+                  </div>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Deadline:</p>
+                    <p>
+                      {
+                        resignationChecklist?.resignation_checklist
+                          ?.resignation_letter?.deadline
+                      }
+                    </p>
+                  </div>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Submission Method:</p>
+                    <p>
+                      {
+                        resignationChecklist?.resignation_checklist
+                          ?.resignation_letter?.submission_method
+                      }
+                    </p>
+                  </div>
+                  <div className="flex gap-4">
+                    <p className="font-bold">Recipients:</p>
+                    <div className="flex flex-col px-5">
+                      <div className="flex">
+                        <p>Primary:</p>
+                        <p>
+                          {
+                            resignationChecklist?.resignation_checklist
+                              ?.resignation_letter?.recipient?.primary
+                          }
+                        </p>
+                      </div>
+                      <div className="flex">
+                        <p>Alternative:</p>
+                        <p>
+                          {
+                            resignationChecklist?.resignation_checklist
+                              ?.resignation_letter?.recipient?.alternate
+                          }
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <p className="text-xl font-bold border-b-2 border-gray-500">
-                Special Requirements
-              </p>
-              <div className="w-full">
-                {resignationChecklist?.resignation_checklist?.special_requirements?.map(
-                  (req, i) => (
-                    <div className="py-3" key={i}>
-                      <p className="font-bold text-lg italic">
-                        Requirement {i + 1}
-                      </p>
-                      <div className="flex gap-4">
-                        <p className="font-bold">Requirement:</p>
-                        <p>{req.requirement}</p>
+                <p className="text-xl font-bold border-b-2 border-gray-500">
+                  Special Requirements
+                </p>
+                <div className="w-full">
+                  {resignationChecklist?.resignation_checklist?.special_requirements?.map(
+                    (req, i) => (
+                      <div className="py-3" key={i}>
+                        <p className="font-bold text-lg italic">
+                          Requirement {i + 1}
+                        </p>
+                        <div className="flex gap-4">
+                          <p className="font-bold">Requirement:</p>
+                          <p>{req.requirement}</p>
+                        </div>
+                        <div className="flex gap-4">
+                          <p className="font-bold">Deadline:</p>
+                          <p>{req.deadline}</p>
+                        </div>
+                        <div className="flex gap-4">
+                          <p className="font-bold">Clause Reference:</p>
+                          <p>{req.clause_reference}</p>
+                        </div>
                       </div>
-                      <div className="flex gap-4">
-                        <p className="font-bold">Deadline:</p>
-                        <p>{req.deadline}</p>
-                      </div>
-                      <div className="flex gap-4">
-                        <p className="font-bold">Clause Reference:</p>
-                        <p>{req.clause_reference}</p>
-                      </div>
-                    </div>
-                  )
-                )}
-              </div>
-              <p className="text-xl font-bold border-b-2 border-gray-500">
-                Post Resignation Requirements
-              </p>
-              <div className="w-full">
-                {resignationChecklist?.resignation_checklist?.post_resignation_obligations?.map(
-                  (postOb, i) => (
-                    <div className="py-3" key={i}>
-                      <p className="font-bold text-lg italic">
-                        Obligation {i + 1}
-                      </p>
-                      <div className="flex gap-4">
-                        <p className="font-bold">Obligation:</p>
-                        <p>{postOb.obligation}</p>
-                      </div>
-                      <div className="flex gap-4">
-                        <p className="font-bold">Duration:</p>
-                        <p>{postOb.duration}</p>
-                      </div>
-                      <div className="flex gap-4">
-                        <p className="font-bold">Clause Reference:</p>
-                        <p>{postOb.clause_reference}</p>
-                      </div>
-                    </div>
-                  )
-                )}
-              </div>
-              <p className="text-xl font-bold border-b-2 border-gray-500">
-                Compliance Consequences
-              </p>
-              <div className="w-full">
-                <ul>
-                  {resignationChecklist?.resignation_checklist?.compliance_consequences?.map(
-                    (c, i) => <li key={i}>{c}</li>
+                    )
                   )}
-                </ul>
+                </div>
+                <p className="text-xl font-bold border-b-2 border-gray-500">
+                  Post Resignation Requirements
+                </p>
+                <div className="w-full">
+                  {resignationChecklist?.resignation_checklist?.post_resignation_obligations?.map(
+                    (postOb, i) => (
+                      <div className="py-3" key={i}>
+                        <p className="font-bold text-lg italic">
+                          Obligation {i + 1}
+                        </p>
+                        <div className="flex gap-4">
+                          <p className="font-bold">Obligation:</p>
+                          <p>{postOb.obligation}</p>
+                        </div>
+                        <div className="flex gap-4">
+                          <p className="font-bold">Duration:</p>
+                          <p>{postOb.duration}</p>
+                        </div>
+                        <div className="flex gap-4">
+                          <p className="font-bold">Clause Reference:</p>
+                          <p>{postOb.clause_reference}</p>
+                        </div>
+                      </div>
+                    )
+                  )}
+                </div>
+                <p className="text-xl font-bold border-b-2 border-gray-500">
+                  Compliance Consequences
+                </p>
+                <div className="w-full">
+                  <ul>
+                    {resignationChecklist?.resignation_checklist?.compliance_consequences?.map(
+                      (c, i) => <li key={i}>{c}</li>
+                    )}
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
+            <div className="flex w-full gap-4">
+              <p className="font-bold text-lg w-20">Step 3:</p>
+              <div className="flex flex-col">
+                <label htmlFor="employeeWalletAdd">
+                  Enter Employee&apos;s Wallet Address
+                </label>
+                <input
+                  id="employeeWalletAdd"
+                  type="text"
+                  className="border-black border-solid border-2"
+                />
+              </div>
+            </div>
+            <div className="flex w-full gap-4">
+              <p className="font-bold text-lg w-20">Step 4:</p>
+              <div className="flex flex-col">
+                <p>Sign Transaction to confirm the contract</p>
+                <button
+                  className="bg-blue-300 rounded-lg p-2 w-[50%] text-xs"
+                  onClick={handleCreateNewSafe}
+                >
+                  Sign Transaction
+                </button>
+              </div>
+            </div>
+            <div className="flex w-full gap-4">
+              <p className="font-bold text-lg w-20">Step 5:</p>
+              <div className="flex flex-col">
+                <button className="bg-blue-300 rounded-lg p-2 w-[90%] text-xs">
+                  Deposit ETH
+                </button>
+              </div>
+            </div>
+          </>
         ) : null}
-        <div className="flex w-full gap-4">
-          <p className="font-bold text-lg w-20">Step 3:</p>
-          <div className="flex flex-col">
-            <label htmlFor="employeeWalletAdd">
-              Enter Employee&apos;s Wallet Address
-            </label>
-            <input
-              id="employeeWalletAdd"
-              type="text"
-              className="border-black border-solid border-2"
-            />
-          </div>
-        </div>
-        <div className="flex w-full gap-4">
-          <p className="font-bold text-lg w-20">Step 4:</p>
-          <div className="flex flex-col">
-            <p>Sign Transaction to confirm the contract</p>
-            <button
-              className="bg-blue-300 rounded-lg p-2 w-[50%] text-xs"
-              onClick={handleCreateNewSafe}
-            >
-              Sign Transaction
-            </button>
-          </div>
-        </div>
-        <div className="flex w-full gap-4">
-          <p className="font-bold text-lg w-20">Step 5:</p>
-          <div className="flex flex-col">
-            <button className="bg-blue-300 rounded-lg p-2 w-[90%] text-xs">
-              Deposit ETH
-            </button>
-          </div>
-        </div>
       </div>
     </>
   );
