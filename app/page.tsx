@@ -1,5 +1,5 @@
 "use client";
-import Transaction from "@/_components/Transaction";
+import Transaction from "@/app/_components/Transaction";
 import Link from "next/link";
 
 export default function Home() {
