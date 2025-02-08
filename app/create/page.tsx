@@ -37,40 +37,6 @@ interface ResignationChecklist {
   };
 }
 
-const tempSpecialReqs = [
-  {
-    requirement: "Req 1",
-    deadline: "1",
-    clause_reference: "Clause reference 1",
-  },
-  {
-    requirement: "Req 2",
-    deadline: "2",
-    clause_reference: "Clause reference 2",
-  },
-];
-
-const postObligations = [
-  {
-    obligation:
-      "Maintain confidentiality of employer's proprietary information",
-    duration: "Continues after employment ends",
-    clause_reference: "Section 8",
-  },
-  {
-    obligation:
-      "Maintain confidentiality of employer's proprietary information",
-    duration: "Continues after employment ends",
-    clause_reference: "Section 8",
-  },
-];
-
-const complianceConsequences = [
-  "consequence 1",
-  "consequence 2",
-  "consequence 3",
-];
-
 export default function Page() {
   const { wallets } = useWallets();
   const [file, setFile] = useState<File | null>(null);
