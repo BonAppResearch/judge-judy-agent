@@ -37,7 +37,7 @@ function UploadButton() {
     <>
       <label
         className="bg-blue-300 rounded-lg p-2 text-xs text-center cursor-pointer"
-        for="employmentContract"
+        htmlFor="employmentContract"
       >
         Upload Employment Contract
       </label>
