@@ -5,10 +5,15 @@
   ],
   "modelProvider": "openai",
   "settings": {
-    "secrets": {},
+    "secrets": {
+      "POST_IMMEDIATELY": "true"
+    },
     "voice": {
-      "model": "en_US-female-medium"
-    }
+      "model": "en_US-female-medium",
+      "url": "https://dummy.com"
+    },
+    "embeddingModel": "dummy",
+    "model": "dummy"
   },
   "plugins": [],
   "bio": [
