@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatMessages = document.getElementById('chatMessages');
 
     // API configuration
-    const API_URL = 'https://autonome.alt.technology/judy-wtucvi/d26fcfdf-fb35-0972-958b-61d7a545d389/message';
-    const AUTH_HEADER = 'Basic anVkeTpSa2ZIZWJxandM';
+    const API_URL = 'https://autonome.alt.technology/judychat-wavccz/d26fcfdf-fb35-0972-958b-61d7a545d389/message';
+    const AUTH_HEADER = 'Basic anVkeWNoYXQ6Q3l3dlFIR2dPQw==';
 
     // Function to add a message to the chat
     function addMessage(text, isUser = false) {
