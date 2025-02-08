@@ -1,4 +1,3 @@
-import { createSafeClient } from "@/app/utils/safeHelper";
 import React from "react";
 import { createWalletClient, custom } from "viem";
 import { baseSepolia } from "viem/chains";
@@ -21,14 +20,7 @@ export default function Transaction({ role = "employer", createdDate, walletAddr
         <p>{txStatus}</p>
       </div>
       <div className="flex gap-4">
-        <button
-          className="rounded-lg bg-green-400 px-4 p-2 text-xs"
-          onClick={() => {
-            console.log(window.ethereum);
-            const client = createWalletClient({ chain: baseSepolia, transport: custom(window.ethereum) });
-            createSafeClient(client, "0x0000000000000000000000000000000000000000");
-          }}
-        >
+        <button className="rounded-lg bg-green-400 px-4 p-2 text-xs" onClick={() => {}}>
           Request Withdrawal
         </button>
       </div>
