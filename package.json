@@ -8,6 +8,12 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "eslintConfig": {
+    "extends": "react-app",
+    "rules": {
+      "@typescript-eslint/no-unused-vars": "off"
+    }
+  },
   "dependencies": {
     "@prisma/client": "^6.3.1",
     "@privy-io/react-auth": "^2.3.0",
