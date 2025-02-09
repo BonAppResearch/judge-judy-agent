@@ -26,12 +26,12 @@ export default function Home() {
   const [employeeTx, setEmployeeTx] = useState<EmployeeTransaction[]>([]);
 
   const handleGetEmployerTransactions = async () => {
-    const transactions = await listRecordsForEmployer(wallet.address);
+    const transactions = await listRecordsForEmployer(wallet?.address);
     setEmployerTx(transactions);
   };
 
   const handleGetEmployeeTransactions = async () => {
-    const transactions = await listRecordsForEmployee(wallet.address);
+    const transactions = await listRecordsForEmployee(wallet?.address);
     setEmployeeTx(transactions);
   };
 
