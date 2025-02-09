@@ -81,7 +81,7 @@ export const getNewSafeClient = async (employerAccount: WalletClient, employeeAd
     predictedSafe: {
       safeAccountConfig: {
         owners: [employerAddress, employeeAddress, AGENT_SIGNER_ADDRESS],
-        threshold: 1,
+        threshold: 2,
       },
     },
   });
