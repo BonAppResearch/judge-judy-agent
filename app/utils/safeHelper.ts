@@ -106,7 +106,12 @@ export const getNewSafeClient = async (employerAccount: WalletClient, employeeAd
     hash: transactionHash,
   });
 
-  const safeAddress = getSafeAddressFromDeploymentTx(receipt, "1.4.1");
+  console.log("receipt", receipt);
+
+  const version = await safeClient.getContractVersion();
+  console.log("version", version);
+
+  const safeAddress = getSafeAddressFromDeploymentTx(receipt, version);
 
   await storeSafeRecord(safeAddress, employerAddress, employeeAddress);
 
