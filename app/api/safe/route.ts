@@ -24,6 +24,7 @@ export async function POST(request: Request) {
       },
     });
 
+    console.log(prisma.safeAccount);
     console.log({ safeAccount });
     return NextResponse.json(safeAccount);
   } catch (error) {
