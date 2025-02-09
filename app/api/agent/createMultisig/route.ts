@@ -6,7 +6,7 @@ import { createSafeFromAgent } from "@/app/utils/agentHelper";
 
 const walletData = {
   walletId: "06be1f44-0b15-45a9-afd6-23d9a2817791",
-  seed: "",
+  seed: process.env.CDP_WALLET_SEED,
   networkId: "base-sepolia",
 };
 

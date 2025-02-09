@@ -1,4 +1,4 @@
-import { createPublicClient, createWalletClient, custom, http, WalletClient } from "viem";
+import { createPublicClient, createWalletClient, custom, http } from "viem";
 import { Address } from "viem/accounts";
 import { baseSepolia } from "viem/chains";
 import Safe, { getSafeAddressFromDeploymentTx } from "@safe-global/protocol-kit";
