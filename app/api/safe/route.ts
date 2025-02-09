@@ -24,6 +24,7 @@ export async function POST(request: Request) {
       },
     });
 
+    console.log({ safeAccount });
     return NextResponse.json(safeAccount);
   } catch (error) {
     console.error("Failed to create safe account:", error);
