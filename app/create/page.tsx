@@ -43,6 +43,7 @@ export default function Page() {
   const [employeeAddress, setEmployeeAddress] = useState<string | null>(null);
   const [resignationChecklist, setResignationChecklist] =
     useState<ResignationChecklist | null>(null);
+  const [safeWalletAddr, setSafeWalletAddr] = useState<string | null>(null);
 
   useEffect(() => {
     console.log("State updated - resignationChecklist:", resignationChecklist);
@@ -100,7 +101,11 @@ export default function Page() {
     });
 
     const safeClient = await getNewSafeClient(walletClient, employeeAddress);
-    console.log({ safeClient });
+    const contractAddr = await safeClient.getAddress();
+    setSafeWalletAddr(contractAddr);
+    console.log(safeClient);
+
+    // console.log({  });
   };
 
   return (
@@ -332,14 +337,17 @@ export default function Page() {
                 </button>
               </div>
             </div>
-            <div className="flex w-full gap-4">
-              <p className="font-bold text-lg w-20">Step 5:</p>
-              <div className="flex flex-col">
-                <button className="bg-blue-300 rounded-lg p-2 w-[90%] text-xs">
-                  Deposit ETH
-                </button>
+            {safeWalletAddr ? (
+              <div className="flex w-full gap-4">
+                <p className="font-bold text-lg w-20">Step 5:</p>
+                <div className="flex flex-col">
+                  <p className="font-bold">
+                    Deposit ETH to this Safe Wallet Address:
+                  </p>
+                  <p>{safeWalletAddr}</p>
+                </div>
               </div>
-            </div>
+            ) : null}
           </>
         ) : null}
       </div>
