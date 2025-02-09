@@ -1,6 +1,4 @@
-import Safe, {
-  getSafeAddressFromDeploymentTx,
-} from "@safe-global/protocol-kit";
+import Safe, { getSafeAddressFromDeploymentTx } from "@safe-global/protocol-kit";
 import SafeApiKit from "@safe-global/api-kit";
 import { Address, createPublicClient, http, WalletClient } from "viem";
 import { baseSepolia } from "viem/chains";
@@ -10,7 +8,7 @@ export const getAgentSigner = async () => {
 };
 
 // TODO: get the agent signer address from agentkit / env
-const AGENT_SIGNER_ADDRESS = "0x0000000000000000000000000000000000000000";
+const AGENT_SIGNER_ADDRESS = "0x897A99e53440703eF4817215821926F6067091f7";
 const RPC_URL = "https://sepolia.base.org";
 
 const publicClient = createPublicClient({
@@ -56,10 +54,7 @@ export const listRecordsForEmployee = async (employeeAddress: Address) => {
 };
 
 // get / create the safe clients
-export const getDeployedSafeClient = async (
-  safeAddress: Address,
-  signer: Address
-) => {
+export const getDeployedSafeClient = async (safeAddress: Address, signer: Address) => {
   const safeClient = await Safe.init({
     provider: RPC_URL,
     safeAddress: safeAddress,
@@ -74,10 +69,7 @@ export const getDeployedSafeClient = async (
 };
 
 // assuming only employer will start this process, employer = signer.
-export const getNewSafeClient = async (
-  employerAccount: WalletClient,
-  employeeAddress: Address
-) => {
+export const getNewSafeClient = async (employerAccount: WalletClient, employeeAddress: Address) => {
   console.log(employerAccount.transport);
 
   const employerAddress = (await employerAccount.requestAddresses())[0];
@@ -99,8 +91,7 @@ export const getNewSafeClient = async (
     return safeClient;
   }
 
-  const deploymentTransaction =
-    await safeClient.createSafeDeploymentTransaction();
+  const deploymentTransaction = await safeClient.createSafeDeploymentTransaction();
 
   const transactionHash = await employerAccount.sendTransaction({
     to: deploymentTransaction.to,
@@ -115,27 +106,22 @@ export const getNewSafeClient = async (
     hash: transactionHash,
   });
 
-  const safeAddress = getSafeAddressFromDeploymentTx(receipt, "1.4.1");
+  console.log("receipt", receipt);
+
+  const version = await safeClient.getContractVersion();
+  console.log("version", version);
+
+  const safeAddress = getSafeAddressFromDeploymentTx(receipt, version);
 
   await storeSafeRecord(safeAddress, employerAddress, employeeAddress);
 
-  console.log(
-    "safeclient",
-    deploymentTransaction,
-    await safeClient.isSafeDeployed(),
-    await safeClient.getAddress(),
-    safeClient.getPredictedSafe()
-  );
+  console.log("safeclient", deploymentTransaction, await safeClient.isSafeDeployed(), await safeClient.getAddress(), safeClient.getPredictedSafe());
 
   return safeClient;
 };
 
 // propose a transaction to the safe
-export const proposeWithdrawTransaction = async (
-  safeClient: Safe,
-  to: Address,
-  value: bigint
-) => {
+export const proposeWithdrawTransaction = async (safeClient: Safe, to: Address, value: bigint) => {
   const tx = await safeClient.createTransaction({
     transactions: [
       {
@@ -173,9 +159,7 @@ export const approveWithdrawTransaction = async (safeClient: Safe) => {
   }
 
   // Get pending transactions that need a signature
-  const pendingTransactions = await apiKit.getPendingTransactions(
-    await safeClient.getAddress()
-  );
+  const pendingTransactions = await apiKit.getPendingTransactions(await safeClient.getAddress());
   // We assume there is only one pending transaction for the safe address
   const transaction = pendingTransactions.results[0];
   // sign the transaction
@@ -187,11 +171,7 @@ export const approveWithdrawTransaction = async (safeClient: Safe) => {
 };
 
 // internal functions, invoke during new safe account creation
-const storeSafeRecord = async (
-  safeAddress: string,
-  employerAddress: string,
-  employeeAddress: string
-) => {
+const storeSafeRecord = async (safeAddress: string, employerAddress: string, employeeAddress: string) => {
   const response = await fetch("/api/safe", {
     method: "POST",
     headers: {
@@ -206,3 +186,5 @@ const storeSafeRecord = async (
   const data = await response.json();
   console.log(data);
 };
+
+// agents related functions
