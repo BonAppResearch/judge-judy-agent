@@ -53,7 +53,7 @@ export default function Page() {
         try {
           parsedData = JSON.parse(data);
         } catch (e) {
-          console.log("Could not parse data as JSON");
+          console.log("Could not parse data as JSON", e);
         }
       }
 
