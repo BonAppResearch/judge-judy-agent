@@ -8,24 +8,36 @@ import {
 } from "./utils/safeHelper";
 import { useEffect, useState } from "react";
 
-interface Transaction {
+interface EmployerTransaction {
   createdAt: string;
   employeeAddress: string;
+  address: string;
+}
+interface EmployeeTransaction {
+  createdAt: string;
+  employerAddress: string;
   address: string;
 }
 
 export default function Home() {
   const { wallets } = useWallets();
   const wallet = wallets[0] || null;
-  const [employerTx, setEmployerTx] = useState<Transaction[]>([]);
+  const [employerTx, setEmployerTx] = useState<EmployerTransaction[]>([]);
+  const [employeeTx, setEmployeeTx] = useState<EmployeeTransaction[]>([]);
 
   const handleGetEmployerTransactions = async () => {
     const transactions = await listRecordsForEmployer(wallet.address);
     setEmployerTx(transactions);
   };
 
+  const handleGetEmployeeTransactions = async () => {
+    const transactions = await listRecordsForEmployee(wallet.address);
+    setEmployeeTx(transactions);
+  };
+
   useEffect(() => {
     handleGetEmployerTransactions();
+    handleGetEmployeeTransactions();
   }, [wallet]);
 
   return (
@@ -47,21 +59,24 @@ export default function Home() {
             safeWalletAddress={tx.address}
           />
         ))}
+        <Transaction
+          createdDate="2025-01-01"
+          walletAddress="0x1234"
+          safeWalletAddress="123"
+        />
       </section>
       <section className="item-center mx-auto flex flex-col justify-between p-10">
         <div className="item-center flex w-full justify-between">
           <h2 className="text-xl font-bold">Employee</h2>
         </div>
-        <Transaction
-          createdDate="2025-01-01"
-          walletAddress="0x1234"
-          safeWalletAddress="123"
-        />
-        <Transaction
-          createdDate="2025-01-01"
-          walletAddress="0x1234"
-          safeWalletAddress="123"
-        />
+        {employeeTx?.map((tx, i) => (
+          <Transaction
+            key={i}
+            createdDate={tx.createdAt}
+            walletAddress={tx.employerAddress}
+            safeWalletAddress={tx.address}
+          />
+        ))}
         <Transaction
           createdDate="2025-01-01"
           walletAddress="0x1234"
