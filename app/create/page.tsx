@@ -40,6 +40,7 @@ interface ResignationChecklist {
 export default function Page() {
   const { wallets } = useWallets();
   const [file, setFile] = useState<File | null>(null);
+  const [employeeAddress, setEmployeeAddress] = useState<string | null>(null);
   const [resignationChecklist, setResignationChecklist] =
     useState<ResignationChecklist | null>(null);
 
@@ -86,6 +87,7 @@ export default function Page() {
   }
 
   const handleCreateNewSafe = async () => {
+    if (!employeeAddress) return;
     const employerPrivyWallet = wallets[0] || null;
 
     await employerPrivyWallet.switchChain(baseSepolia.id);
@@ -97,10 +99,7 @@ export default function Page() {
       transport: custom(provider),
     });
 
-    const safeClient = await getNewSafeClient(
-      walletClient,
-      "0x4838B106FCe9647Bdf1E7877BF73cE8B0BAD5f97"
-    );
+    const safeClient = await getNewSafeClient(walletClient, employeeAddress);
     console.log({ safeClient });
   };
 
@@ -309,14 +308,15 @@ export default function Page() {
             </div>
             <div className="flex w-full gap-4">
               <p className="font-bold text-lg w-20">Step 3:</p>
-              <div className="flex flex-col">
+              <div className="flex flex-col w-[50%]">
                 <label htmlFor="employeeWalletAdd">
                   Enter Employee&apos;s Wallet Address
                 </label>
                 <input
                   id="employeeWalletAdd"
                   type="text"
-                  className="border-black border-solid border-2"
+                  className="border-black border-solid border-2 w-full"
+                  onChange={(e) => setEmployeeAddress(e.target.value)}
                 />
               </div>
             </div>
