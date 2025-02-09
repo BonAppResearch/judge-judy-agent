@@ -3,11 +3,8 @@ import React, { useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { useWallets } from "@privy-io/react-auth";
 import { baseSepolia } from "viem/chains";
-import { createWalletClient, custom, Hex } from "viem";
-import {
-  proposeWithdrawTransaction,
-  getNewSafeClient,
-} from "@/app/utils/safeHelper";
+import { Address, createWalletClient, custom, Hex } from "viem";
+import { proposeWithdrawTransaction, getDeployedSafeClient } from "@/app/utils/safeHelper";
 
 export default function Page() {
   const [withdrawalValue, setWithdrawalValue] = useState<bigint | null>(null);
@@ -27,38 +24,29 @@ export default function Page() {
       transport: custom(provider),
     });
 
-    const counterPartyWalletAddr = searchParams.get("counterPartyWallet");
-    if (!counterPartyWalletAddr) return;
-    console.log({ counterPartyWalletAddr });
+    console.log("walletclient", walletClient);
 
-    const safeClient = await getNewSafeClient(
-      walletClient,
-      counterPartyWalletAddr
-    );
+    const safeClient = await getDeployedSafeClient(safeWalletAddr as Address, walletClient);
 
-    console.log({ safeClient });
+    console.log("safeclient", { safeClient });
     return safeClient;
   }
 
   async function handleProposeWithdraw() {
     console.log("hahaha");
     const employerSafeClient = await getEmployerWalletClient();
+
+    console.log("employerSafeClient", employerSafeClient);
     if (!employerSafeClient || !withdrawalValue) return;
     console.log("babab");
-    const response = await proposeWithdrawTransaction(
-      employerSafeClient,
-      employerPrivyWallet.address,
-      withdrawalValue
-    );
+    const response = await proposeWithdrawTransaction(employerSafeClient, employerPrivyWallet.address, withdrawalValue);
 
     return response;
   }
 
   return (
     <div>
-      <h1 className="font-bold text-2xl w-full text-center py-5">
-        Propose Withdrawal
-      </h1>
+      <h1 className="font-bold text-2xl w-full text-center py-5">Propose Withdrawal</h1>
       <div className="flex flex-col p-5 w-[50%]">
         <div className="p-5">
           <p className="font-bold">Safe Wallet Contract Address:</p>
@@ -73,9 +61,7 @@ export default function Page() {
           <input
             type="number"
             className="border-solid border-black border-2"
-            onChange={(e) =>
-              setWithdrawalValue(e.target.value ? BigInt(e.target.value) : null)
-            }
+            onChange={(e) => setWithdrawalValue(e.target.value ? BigInt(e.target.value) : null)}
           />
           <button className="bg-blue-300 p-3" onClick={handleProposeWithdraw}>
             Propose Withdrawal

@@ -54,11 +54,11 @@ export const listRecordsForEmployee = async (employeeAddress: Address) => {
 };
 
 // get / create the safe clients
-export const getDeployedSafeClient = async (safeAddress: Address, signer: Address) => {
+export const getDeployedSafeClient = async (safeAddress: Address, signer: WalletClient) => {
   const safeClient = await Safe.init({
-    provider: RPC_URL,
+    provider: signer.transport,
     safeAddress: safeAddress,
-    signer: signer,
+    signer: (await signer.requestAddresses())[0],
   });
 
   if (!(await safeClient.isSafeDeployed())) {
@@ -132,23 +132,25 @@ export const proposeWithdrawTransaction = async (safeClient: Safe, to: Address, 
     ],
   });
 
+  console.log("tx @ proposeWithdrawTransaction", tx);
   // Every transaction has a Safe (Smart Account) Transaction Hash different than the final transaction hash
   const safeTxHash = await safeClient.getTransactionHash(tx);
-  // The AI agent signs this Safe (Smart Account) Transaction Hash
+
   const signature = await safeClient.signHash(safeTxHash);
 
+  console.log("signature @ proposeWithdrawTransaction", signature);
+  console.log("safeclient.getAddress() @ proposeWithdrawTransaction", await safeClient.getAddress());
+
   // Now the transaction with the signature is sent to the Transaction Service with the Api Kit:
-  const response = await apiKit.proposeTransaction({
+  await apiKit.proposeTransaction({
     safeAddress: await safeClient.getAddress(),
     safeTransactionData: tx.data,
     safeTxHash,
     senderSignature: signature.data,
-    senderAddress: AGENT_SIGNER_ADDRESS,
+    senderAddress: to, // just assume to = sender now
   });
 
-  console.log(response);
-
-  return response;
+  return true;
 };
 
 // approve a transaction to the safe (safeclient needs to be deployed safe)
