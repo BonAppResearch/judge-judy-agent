@@ -66,7 +66,8 @@ export async function GET(request: Request) {
   } catch (error) {
     console.error("Failed to fetch safe accounts:", error);
     return NextResponse.json(
-      { error: "Failed to fetch safe accounts" },
+      { error: error },
+      // { error: "Failed to fetch safe accounts" },
       { status: 500 }
     );
   }

@@ -24,15 +24,26 @@ export default function Home() {
   const wallet = wallets[0] || null;
   const [employerTx, setEmployerTx] = useState<EmployerTransaction[]>([]);
   const [employeeTx, setEmployeeTx] = useState<EmployeeTransaction[]>([]);
+  const [walletAddr, setWalletAddr] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (wallet?.address) {
+      setWalletAddr(wallet.address);
+    }
+  }, [wallet]);
 
   const handleGetEmployerTransactions = async () => {
-    const transactions = await listRecordsForEmployer(wallet?.address);
-    setEmployerTx(transactions);
+    if (!walletAddr) return;
+    const transactions = await listRecordsForEmployer(walletAddr);
+    if (!transactions.error) setEmployerTx(transactions);
+
+    console.log({ transactions });
   };
 
   const handleGetEmployeeTransactions = async () => {
-    const transactions = await listRecordsForEmployee(wallet?.address);
-    setEmployeeTx(transactions);
+    if (!walletAddr) return;
+    const transactions = await listRecordsForEmployee(walletAddr);
+    if (!transactions.error) setEmployeeTx(transactions);
   };
 
   useEffect(() => {
