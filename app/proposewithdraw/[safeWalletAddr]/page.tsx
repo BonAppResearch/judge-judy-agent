@@ -29,12 +29,14 @@ export default function page() {
 
     const counterPartyWalletAddr = searchParams.get("counterPartyWallet");
     if (!counterPartyWalletAddr) return;
+    console.log({ counterPartyWalletAddr });
 
     const safeClient = await getNewSafeClient(
       walletClient,
       counterPartyWalletAddr
     );
 
+    console.log({ safeClient });
     return safeClient;
   }
 
