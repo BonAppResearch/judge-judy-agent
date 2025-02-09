@@ -9,7 +9,7 @@ import {
   getNewSafeClient,
 } from "@/app/utils/safeHelper";
 
-export default function page() {
+export default function Page() {
   const [withdrawalValue, setWithdrawalValue] = useState<bigint | null>(null);
   const params = useParams();
   const searchParams = useSearchParams();
