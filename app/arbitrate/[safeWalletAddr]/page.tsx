@@ -3,7 +3,6 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 
 export default function Page() {
-  const [file, setFile] = useState<File | null>(null);
   const params = useParams();
   const { safeWalletAddr } = params;
   const [arbResult, setArbResult] = useState<{
@@ -67,7 +66,7 @@ export default function Page() {
   return (
     <div className="p-10 flex flex-col gap-10">
       <h1 className="font-bold text-2xl w-full bg-slate-400 text-center">
-        Abitration
+        Arbitration
       </h1>
       <div className="w-full flex flex-col gap-2">
         <p className="text-3xl">
@@ -87,7 +86,7 @@ export default function Page() {
           id="arbitrationDoc"
           onChange={(e) => {
             const selectedFile = e.target.files?.[0] || null;
-            setFile(selectedFile);
+
             if (selectedFile) {
               handleArbitrationFile(selectedFile);
             }
