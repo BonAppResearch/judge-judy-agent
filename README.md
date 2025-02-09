@@ -4,7 +4,7 @@
 
 [Chat with Judge Judy](https://bonapp.org/judge-judy-agent/chat)
 
-[Ask Judge Judy to arbitrate](https://bonapp.org/judge-judy-agent/arbitrate)
+[Ask Judge Judy to arbitrate](https://judgejudyagent.vercel.app/)
 
 ## Setup
 
