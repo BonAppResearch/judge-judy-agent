@@ -66,31 +66,35 @@ export default function Home() {
             </button>
           </Link>
         </div>
-        {wallet
-          ? employerTx?.map((tx, i) => (
-              <Transaction
-                key={i}
-                createdDate={tx.createdAt}
-                walletAddress={tx.employeeAddress}
-                safeWalletAddress={tx.address}
-              />
-            ))
-          : null}
+        {wallet ? (
+          employerTx?.map((tx, i) => (
+            <Transaction
+              key={i}
+              createdDate={tx.createdAt}
+              walletAddress={tx.employeeAddress}
+              safeWalletAddress={tx.address}
+            />
+          ))
+        ) : (
+          <p>No transactions</p>
+        )}
       </section>
       <section className="item-center mx-auto flex flex-col justify-between p-10">
         <div className="item-center flex w-full justify-between">
           <h2 className="text-xl font-bold">Employee</h2>
         </div>
-        {wallet
-          ? employeeTx?.map((tx, i) => (
-              <Transaction
-                key={i}
-                createdDate={tx.createdAt}
-                walletAddress={tx.employerAddress}
-                safeWalletAddress={tx.address}
-              />
-            ))
-          : null}
+        {wallet ? (
+          employeeTx?.map((tx, i) => (
+            <Transaction
+              key={i}
+              createdDate={tx.createdAt}
+              walletAddress={tx.employerAddress}
+              safeWalletAddress={tx.address}
+            />
+          ))
+        ) : (
+          <p>No transactions</p>
+        )}
       </section>
     </>
   );

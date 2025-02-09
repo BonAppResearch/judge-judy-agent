@@ -1,4 +1,5 @@
 // import React from "react";
+import Link from "next/link";
 
 type TxProp = {
   createdDate: string;
@@ -27,9 +28,13 @@ export default function Transaction({
           <p>{safeWalletAddress}</p>
         </div>
       </div>
-      <button className="rounded-lg bg-green-400 px-4 py-2 text-xs">
-        Request Withdrawal
-      </button>
+      <Link
+        href={`/proposewithdraw/${safeWalletAddress}?counterPartyWallet=${walletAddress}`}
+      >
+        <button className="rounded-lg bg-green-400 px-4 py-2 text-xs">
+          Request Withdrawal
+        </button>
+      </Link>
     </div>
   );
 }
