@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useWallets } from "@privy-io/react-auth";
 import { baseSepolia } from "viem/chains";
 import { Address, createWalletClient, custom, Hex } from "viem";
@@ -9,7 +9,7 @@ import { proposeWithdrawTransaction, getDeployedSafeClient } from "@/app/utils/s
 export default function Page() {
   const [withdrawalValue, setWithdrawalValue] = useState<bigint | null>(null);
   const params = useParams();
-  const searchParams = useSearchParams();
+
   const { safeWalletAddr } = params;
   const { wallets } = useWallets();
   const employerPrivyWallet = wallets[0] || null;
