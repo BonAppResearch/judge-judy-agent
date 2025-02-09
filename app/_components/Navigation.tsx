@@ -18,8 +18,8 @@ export default function Navigation() {
       <Link href="/">
         <h1 className="text-4xl font-bold">Judge Judy Agent</h1>
       </Link>
-      <div className="flex">
-        <p>{wallet ? addressConcat : ""}</p>
+      <div className="flex gap-6 items-center">
+        <p className="text-lg">{wallet ? addressConcat : ""}</p>
         <button
           className="rounded-xl bg-blue-400 p-4"
           onClick={wallet ? wallet.disconnect : connectWallet}

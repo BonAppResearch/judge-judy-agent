@@ -1,8 +1,33 @@
 "use client";
 import Transaction from "@/app/_components/Transaction";
 import Link from "next/link";
+import { useWallets } from "@privy-io/react-auth";
+import {
+  listRecordsForEmployee,
+  listRecordsForEmployer,
+} from "./utils/safeHelper";
+import { useEffect, useState } from "react";
+
+interface Transaction {
+  createdAt: string;
+  employeeAddress: string;
+  address: string;
+}
 
 export default function Home() {
+  const { wallets } = useWallets();
+  const wallet = wallets[0] || null;
+  const [employerTx, setEmployerTx] = useState<Transaction[]>([]);
+
+  const handleGetEmployerTransactions = async () => {
+    const transactions = await listRecordsForEmployer(wallet.address);
+    setEmployerTx(transactions);
+  };
+
+  useEffect(() => {
+    handleGetEmployerTransactions();
+  }, [wallet]);
+
   return (
     <>
       <section className="item-center mx-auto flex flex-col justify-between p-10">
@@ -14,24 +39,14 @@ export default function Home() {
             </button>
           </Link>
         </div>
-        <Transaction
-          createdDate="2025-01-01"
-          walletAddress="0x1234"
-          txHash="123"
-          txStatus="lkjsdf"
-        />
-        <Transaction
-          createdDate="2025-01-01"
-          walletAddress="0x1234"
-          txHash="123"
-          txStatus="lkjsdf"
-        />
-        <Transaction
-          createdDate="2025-01-01"
-          walletAddress="0x1234"
-          txHash="123"
-          txStatus="lkjsdf"
-        />
+        {employerTx?.map((tx, i) => (
+          <Transaction
+            key={i}
+            createdDate={tx.createdAt}
+            walletAddress={tx.employeeAddress}
+            safeWalletAddress={tx.address}
+          />
+        ))}
       </section>
       <section className="item-center mx-auto flex flex-col justify-between p-10">
         <div className="item-center flex w-full justify-between">
@@ -40,20 +55,17 @@ export default function Home() {
         <Transaction
           createdDate="2025-01-01"
           walletAddress="0x1234"
-          txHash="123"
-          txStatus="lkjsdf"
+          safeWalletAddress="123"
         />
         <Transaction
           createdDate="2025-01-01"
           walletAddress="0x1234"
-          txHash="123"
-          txStatus="lkjsdf"
+          safeWalletAddress="123"
         />
         <Transaction
           createdDate="2025-01-01"
           walletAddress="0x1234"
-          txHash="123"
-          txStatus="lkjsdf"
+          safeWalletAddress="123"
         />
       </section>
     </>
