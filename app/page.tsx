@@ -24,16 +24,15 @@ export default function Home() {
   const wallet = wallets[0] || null;
   const [employerTx, setEmployerTx] = useState<EmployerTransaction[]>([]);
   const [employeeTx, setEmployeeTx] = useState<EmployeeTransaction[]>([]);
-  const [walletAddr, setWalletAddr] = useState<string | null>(null);
+  const [walletAddr, setWalletAddr] = useState<string>();
 
-  useEffect(() => {
-    if (wallet?.address) {
-      setWalletAddr(wallet.address);
-    }
-  }, [wallet]);
+  console.log("connected: ", wallet);
 
   const handleGetEmployerTransactions = async () => {
+    console.log("Run Employer Txs");
     if (!walletAddr) return;
+    console.log("Run Employer Txs -- start");
+    // console.log({ walletAddr });
     const transactions = await listRecordsForEmployer(walletAddr);
     if (!transactions.error) setEmployerTx(transactions);
 
@@ -41,14 +40,19 @@ export default function Home() {
   };
 
   const handleGetEmployeeTransactions = async () => {
+    console.log("Run Employee Txs");
     if (!walletAddr) return;
+    console.log("Run Employee Txs -- start");
     const transactions = await listRecordsForEmployee(walletAddr);
     if (!transactions.error) setEmployeeTx(transactions);
   };
 
   useEffect(() => {
-    handleGetEmployerTransactions();
-    handleGetEmployeeTransactions();
+    if (wallet?.address) {
+      setWalletAddr(wallet.address);
+      handleGetEmployerTransactions();
+      handleGetEmployeeTransactions();
+    }
   }, [wallet]);
 
   return (
@@ -62,37 +66,31 @@ export default function Home() {
             </button>
           </Link>
         </div>
-        {employerTx?.map((tx, i) => (
-          <Transaction
-            key={i}
-            createdDate={tx.createdAt}
-            walletAddress={tx.employeeAddress}
-            safeWalletAddress={tx.address}
-          />
-        ))}
-        <Transaction
-          createdDate="2025-01-01"
-          walletAddress="0x1234"
-          safeWalletAddress="123"
-        />
+        {wallet
+          ? employerTx?.map((tx, i) => (
+              <Transaction
+                key={i}
+                createdDate={tx.createdAt}
+                walletAddress={tx.employeeAddress}
+                safeWalletAddress={tx.address}
+              />
+            ))
+          : null}
       </section>
       <section className="item-center mx-auto flex flex-col justify-between p-10">
         <div className="item-center flex w-full justify-between">
           <h2 className="text-xl font-bold">Employee</h2>
         </div>
-        {employeeTx?.map((tx, i) => (
-          <Transaction
-            key={i}
-            createdDate={tx.createdAt}
-            walletAddress={tx.employerAddress}
-            safeWalletAddress={tx.address}
-          />
-        ))}
-        <Transaction
-          createdDate="2025-01-01"
-          walletAddress="0x1234"
-          safeWalletAddress="123"
-        />
+        {wallet
+          ? employeeTx?.map((tx, i) => (
+              <Transaction
+                key={i}
+                createdDate={tx.createdAt}
+                walletAddress={tx.employerAddress}
+                safeWalletAddress={tx.address}
+              />
+            ))
+          : null}
       </section>
     </>
   );
